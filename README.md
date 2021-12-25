@@ -27,7 +27,7 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 > It will only run a `while(true)` loop yet.
 
 ## Mainly Used Librarys
-null.
+* [spdlog](https://github.com/gabime/spdlog) : fast, multi-threading supported, C++ logging library.
 
 ## Reference
 * [Hazel](https://github.com/TheCherno/Hazel) : Cherno have made a lot amazing Game Engine videos for that.
