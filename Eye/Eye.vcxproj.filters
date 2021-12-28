@@ -4,6 +4,9 @@
     <Filter Include="Eye">
       <UniqueIdentifier>{68E8870B-D4F1-877C-5D6D-9E7CC975937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Eye\Events">
+      <UniqueIdentifier>{4C0FC75C-38C7-08AA-A1CE-E1058DA5A39A}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Eye.h" />
@@ -16,13 +19,22 @@
     <ClInclude Include="src\Eye\EntryPoint.h">
       <Filter>Eye</Filter>
     </ClInclude>
+    <ClInclude Include="src\Eye\Events\ApplicationEvent.h">
+      <Filter>Eye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Eye\Events\Event.h">
+      <Filter>Eye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Eye\Events\KeyEvent.h">
+      <Filter>Eye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Eye\Events\MouseEvent.h">
+      <Filter>Eye\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Eye\Log.h">
       <Filter>Eye</Filter>
     </ClInclude>
-    <ClInclude Include="src\Eye\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Eye\Events\Event.h" />
-    <ClInclude Include="src\Eye\Events\KeyEvent.h" />
-    <ClInclude Include="src\Eye\Events\MouseEvent.h" />
+    <ClInclude Include="src\eyepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
@@ -31,5 +43,6 @@
     <ClCompile Include="src\Eye\Log.cpp">
       <Filter>Eye</Filter>
     </ClCompile>
+    <ClCompile Include="src\eyepch.cpp" />
   </ItemGroup>
 </Project>

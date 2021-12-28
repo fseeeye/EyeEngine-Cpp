@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Eye {
 	// Actual Event: Mouse Moved
 	class EYE_API MouseMovedEvent : public Event

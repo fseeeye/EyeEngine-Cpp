@@ -22,6 +22,9 @@ project "Eye"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- target directory
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}") -- intermediate directory
 
+    pchheader "eyepch.h"
+    pchsource "Eye/src/eyepch.cpp"
+
     files -- project files
     {
         "%{prj.name}/src/**.h",

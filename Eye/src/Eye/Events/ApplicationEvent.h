@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Eye {
 
 	class EYE_API WindowResizeEvent : public Event

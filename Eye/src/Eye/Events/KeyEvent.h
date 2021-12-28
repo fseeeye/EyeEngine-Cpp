@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Eye {
 
 	// Virtual Event: Keyboad
