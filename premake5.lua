@@ -30,6 +30,7 @@ project "Eye"
 
     includedirs -- addtional include directories
     {
+        "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include"
     }
 
@@ -37,7 +38,7 @@ project "Eye"
     filter "system:windows" -- filter for Windows platform
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.19041.0" -- windows SDK version (or use "latest")
+        systemversion "latest" -- windows SDK version
 
         -- ref: https://github.com/premake/premake-core/wiki/defines
         defines -- preprocessor definitions
@@ -94,7 +95,7 @@ project "GameSandbox"
     filter "system:windows" -- filter for Windows platform
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.19041.0" -- windows SDK version (set spec version or use "latest")
+        systemversion "latest" -- windows SDK version (set spec version or use "latest")
 
         -- ref: https://github.com/premake/premake-core/wiki/defines
         defines -- preprocessor definitions

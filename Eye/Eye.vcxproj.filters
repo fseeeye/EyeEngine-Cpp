@@ -19,6 +19,10 @@
     <ClInclude Include="src\Eye\Log.h">
       <Filter>Eye</Filter>
     </ClInclude>
+    <ClInclude Include="src\Eye\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Eye\Events\Event.h" />
+    <ClInclude Include="src\Eye\Events\KeyEvent.h" />
+    <ClInclude Include="src\Eye\Events\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
