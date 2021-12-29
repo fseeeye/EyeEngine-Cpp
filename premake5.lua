@@ -14,6 +14,13 @@ workspace "Eye"
 -- tokens ref: https://github.com/premake/premake-core/wiki/Tokens
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- vendor include directories structure which relative to solution root folder
+IncludeDir = {}
+IncludeDir["GLFW"] = "Eye/vendor/GLFW/include"
+
+-- include `premake5.lua` of vendors 
+include "Eye/vendor/GLFW"
+
 project "Eye"
     location "Eye"
     kind "SharedLib" -- dynamic library (DLL)
@@ -34,7 +41,14 @@ project "Eye"
     includedirs -- addtional include directories
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     -- ref: https://github.com/premake/premake-core/wiki/filter

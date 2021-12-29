@@ -12,4 +12,12 @@
 	#error Eye Engine only support Windows yet!
 #endif // EYE_PLATFORM_WINDOWS
 
+#ifdef EYE_ENABLE_ASSERTS
+	#define EYE_ASSERT(x, ...) { if (!(x)) { EYE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+	#define EYE_CORE_ASSERT(x, ...) { if (!(x)) { EYE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+#else
+	#define EYE_ASSERT(x, ...)
+	#define EYE_CORE_ASSERT(x, ...)
+#endif
+
 #define BIT(x) (1 << x) // 0001 / 0010 / 0100 / ...

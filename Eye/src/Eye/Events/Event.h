@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "eyepch.h"
 #include "Eye/Core.h"
 
 namespace Eye

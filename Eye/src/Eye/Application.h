@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Window.h"
 
 namespace Eye {
 
@@ -11,7 +12,10 @@ namespace Eye {
 		Application();
 		virtual ~Application();
 
-		void Run(); 
+		void Run();
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running;
 	};
 
 	// To be defined in CLIENT
