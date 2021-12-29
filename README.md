@@ -27,6 +27,7 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 > It will only run a `while(true)` loop yet.
 
 ## Mainly Used Librarys
+* [glfw](https://github.com/glfw/glfw) : multi-platform library for OpenGL, OpenGL ES and Vulkan, which provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc. The only regret is that GLFW doesn't support DirectX.
 * [spdlog](https://github.com/gabime/spdlog) : fast, multi-threading supported, C++ logging library.
 
 ## Reference
