@@ -6,6 +6,8 @@
 
 #include "WindowsWindow.h"
 
+#include <Glad/glad.h>
+
 namespace Eye {
 	
 	// if we need to create multiple Window, we are not necessary to init glfw again.
@@ -81,7 +83,11 @@ namespace Eye {
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_Window);
-		
+
+		// Init Glad
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		EYE_CORE_ASSERT(status, "Failed to initialize Glad!");
+
 		// Set VSync
 		SetVSync(m_Data.VSync);
 

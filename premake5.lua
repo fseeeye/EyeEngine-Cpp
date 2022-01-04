@@ -17,9 +17,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- vendor include directories structure which relative to solution root folder
 IncludeDir = {}
 IncludeDir["GLFW"] = "Eye/vendor/GLFW/include"
+IncludeDir["Glad"] = "Eye/vendor/Glad/include"
 
 -- include `premake5.lua` of vendors 
 include "Eye/vendor/GLFW"
+include "Eye/vendor/Glad"
 
 project "Eye"
     location "Eye"
@@ -42,12 +44,14 @@ project "Eye"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}"
     }
 
     links
     {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
@@ -61,7 +65,8 @@ project "Eye"
         defines -- preprocessor definitions
         {
             "EYE_PLATFORM_WINDOWS",
-            "EYE_BUILD_DLL"
+            "EYE_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
         -- ref: https://github.com/premake/premake-core/wiki/postbuildcommands
