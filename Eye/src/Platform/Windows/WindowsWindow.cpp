@@ -6,7 +6,7 @@
 
 #include "WindowsWindow.h"
 
-#include <Glad/glad.h>
+#include <Glad/gl.h>
 
 namespace Eye {
 	
@@ -85,8 +85,9 @@ namespace Eye {
 		glfwMakeContextCurrent(m_Window);
 
 		// Init Glad
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		EYE_CORE_ASSERT(status, "Failed to initialize Glad!");
+		int version = gladLoadGL(glfwGetProcAddress);
+		EYE_CORE_ASSERT(version, "Failed to initialize Glad!");
+		EYE_CORE_INFO("OpenGL version {0}.{1}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 
 		// Set VSync
 		SetVSync(m_Data.VSync);

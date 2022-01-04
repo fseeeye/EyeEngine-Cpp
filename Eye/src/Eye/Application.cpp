@@ -3,7 +3,7 @@
 
 #include "Log.h"
 
-#include <Glad/glad.h>
+#include <Glad/gl.h>
 
 namespace Eye {
 
