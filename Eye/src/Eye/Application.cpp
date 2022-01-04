@@ -29,6 +29,10 @@ namespace Eye {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			// Udpate Layers
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -36,13 +40,33 @@ namespace Eye {
 	// Event callback func for Window, which dispatch event to handler func
 	void Application::OnEvent(Event& e)
 	{
-		EYE_CORE_TRACE("Get Event: {}", e);
+		//EYE_CORE_TRACE("Get Event: {}", e);
 		// create EventDispatcher
 		EventDispatcher dispatcher(e);
 
 		// TODO: handle all events
 		// check event type and dispatch it to correct func
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN_1(OnWindowClosed)); // dispatch Window Closed Event
+
+		if (!e.Handled) {
+			// dispatch event into layers (from button to top)
+			for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+			{
+				(*--it)->OnEvent(e);
+				if (e.Handled)
+					break;
+			}
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
 	}
 
 	// Handle Window Closed Event

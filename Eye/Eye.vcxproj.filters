@@ -37,6 +37,12 @@
     <ClInclude Include="src\Eye\Events\MouseEvent.h">
       <Filter>Eye\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Eye\Layer.h">
+      <Filter>Eye</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Eye\LayerStack.h">
+      <Filter>Eye</Filter>
+    </ClInclude>
     <ClInclude Include="src\Eye\Log.h">
       <Filter>Eye</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
+      <Filter>Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Eye\Layer.cpp">
+      <Filter>Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Eye\LayerStack.cpp">
       <Filter>Eye</Filter>
     </ClCompile>
     <ClCompile Include="src\Eye\Log.cpp">

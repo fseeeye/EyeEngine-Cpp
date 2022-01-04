@@ -72,14 +72,17 @@ project "Eye"
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release" -- filter for Release mode
         defines "EYE_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist" -- filter for Distribution mode
         defines "EYE_DIST"
+        buildoptions "/MD"
         optimize "On"
 
 
@@ -122,12 +125,15 @@ project "GameSandbox"
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release" -- filter for Release mode
         defines "EYE_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist" -- filter for Distribution mode
         defines "EYE_DIST"
+        buildoptions "/MD"
         optimize "On"
