@@ -25,6 +25,8 @@ namespace Eye {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+
+		inline Window& GetWindow() { return *m_Window; }
 	private:
 		// Window Close Event Handler
 		bool OnWindowClosed(WindowCloseEvent& e);
@@ -33,6 +35,11 @@ namespace Eye {
 		bool m_Running;
 
 		LayerStack m_LayerStack;
+	// singleton
+	public:
+		inline static Application& Get() { return *s_Instance; }
+	private:
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

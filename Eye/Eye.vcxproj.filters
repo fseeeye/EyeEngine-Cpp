@@ -53,6 +53,9 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\eyepch.h" />
+    <ClInclude Include="src\Eye\ImGui\ImGUiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3Loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
@@ -71,5 +74,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\eyepch.cpp" />
+    <ClCompile Include="src\Eye\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGL3.cpp" />
   </ItemGroup>
 </Project>

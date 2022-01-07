@@ -18,10 +18,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Eye/vendor/GLFW/include"
 IncludeDir["Glad"] = "Eye/vendor/Glad/include"
+IncludeDir["ImGui"] = "Eye/vendor/imgui"
 
 -- include `premake5.lua` of vendors 
 include "Eye/vendor/GLFW"
 include "Eye/vendor/Glad"
+include "Eye/vendor/imgui"
 
 project "Eye"
     location "Eye"
@@ -45,13 +47,15 @@ project "Eye"
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
         "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 

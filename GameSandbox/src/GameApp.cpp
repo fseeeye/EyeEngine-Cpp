@@ -23,6 +23,7 @@ public:
 	Game()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Eye::ImGuiLayer());
 	}
 
 	~Game()
