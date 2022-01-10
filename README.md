@@ -24,11 +24,10 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 1. Open this repo by Visual Studio. (Recommanded using Visual Studio 2022)
 2. Hit `F5` to run the Game Sandbox Exe Project. 
 
-> It will only run a `while(true)` loop yet.
-
 ## Mainly Used Librarys
 * [glfw](https://github.com/glfw/glfw) : multi-platform library for OpenGL, OpenGL ES and Vulkan, which provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc. The only regret is that GLFW doesn't support DirectX.
 * [glad](https://github.com/Dav1dde/glad) : modern OpenGL wrapper.
+* [ImGui](https://github.com/ocornut/imgui) : amazing Graphic UI lib.
 * [spdlog](https://github.com/gabime/spdlog) : fast, multi-threading supported, C++ logging library.
 
 ## Reference
