@@ -21,14 +21,18 @@ IncludeDir["Glad"] = "Eye/vendor/Glad/include"
 IncludeDir["ImGui"] = "Eye/vendor/imgui"
 
 -- include `premake5.lua` of vendors 
-include "Eye/vendor/GLFW"
-include "Eye/vendor/Glad"
-include "Eye/vendor/imgui"
+group "Dependencies"
+    include "Eye/vendor/GLFW"
+    include "Eye/vendor/Glad"
+    include "Eye/vendor/imgui"
+
+group ""
 
 project "Eye"
     location "Eye"
     kind "SharedLib" -- dynamic library (DLL)
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- target directory
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}") -- intermediate directory
@@ -62,7 +66,7 @@ project "Eye"
     -- ref: https://github.com/premake/premake-core/wiki/filter
     filter "system:windows" -- filter for Windows platform
         cppdialect "C++17"
-        staticruntime "On"
+        -- staticruntime "On"
         systemversion "latest" -- windows SDK version
 
         -- ref: https://github.com/premake/premake-core/wiki/defines
@@ -76,22 +80,25 @@ project "Eye"
         -- ref: https://github.com/premake/premake-core/wiki/postbuildcommands
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/GameSandbox") -- copy Eye Engine dll to GameSandbox bin dir
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/GameSandbox\"") -- copy Eye Engine dll to GameSandbox bin dir
         }
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"
-        buildoptions "/MDd"
+        -- buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release" -- filter for Release mode
         defines "EYE_RELEASE"
-        buildoptions "/MD"
+        -- buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist" -- filter for Distribution mode
         defines "EYE_DIST"
-        buildoptions "/MD"
+        -- buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
 
@@ -99,6 +106,7 @@ project "GameSandbox"
     location "GameSandbox"
     kind "ConsoleApp" -- exe
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- target directory
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}") -- intermediate directory
@@ -123,7 +131,6 @@ project "GameSandbox"
     -- ref: https://github.com/premake/premake-core/wiki/filter
     filter "system:windows" -- filter for Windows platform
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest" -- windows SDK version (set spec version or use "latest")
 
         -- ref: https://github.com/premake/premake-core/wiki/defines
@@ -134,15 +141,18 @@ project "GameSandbox"
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"
-        buildoptions "/MDd"
+        -- buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release" -- filter for Release mode
         defines "EYE_RELEASE"
-        buildoptions "/MD"
+        -- buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist" -- filter for Distribution mode
         defines "EYE_DIST"
-        buildoptions "/MD"
+        -- buildoptions "/MD"
+        runtime "Release"
         optimize "On"

@@ -56,4 +56,21 @@ namespace Eye {
 
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
+	// Actual Event: Key Type
+	class EYE_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int charcode)
+			: KeyEvent(charcode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << GetName() << " Event: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
 }

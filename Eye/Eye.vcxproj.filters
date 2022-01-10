@@ -7,8 +7,14 @@
     <Filter Include="Eye\Events">
       <UniqueIdentifier>{4C0FC75C-38C7-08AA-A1CE-E1058DA5A39A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Eye\ImGui">
+      <UniqueIdentifier>{920B87D4-FE75-3B4B-47B4-ECF0B35D19A0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\Eye\Events\MouseEvent.h">
       <Filter>Eye\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Eye\ImGui\ImGUiLayer.h">
+      <Filter>Eye\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Eye\Layer.h">
       <Filter>Eye</Filter>
     </ClInclude>
@@ -49,17 +58,23 @@
     <ClInclude Include="src\Eye\Window.h">
       <Filter>Eye</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3Loader.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\eyepch.h" />
-    <ClInclude Include="src\Eye\ImGui\ImGUiLayer.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3Loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
       <Filter>Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Eye\ImGui\ImGuiLayer.cpp">
+      <Filter>Eye\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Eye\Layer.cpp">
       <Filter>Eye</Filter>
@@ -70,11 +85,12 @@
     <ClCompile Include="src\Eye\Log.cpp">
       <Filter>Eye</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGL3.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\eyepch.cpp" />
-    <ClCompile Include="src\Eye\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGL3.cpp" />
   </ItemGroup>
 </Project>

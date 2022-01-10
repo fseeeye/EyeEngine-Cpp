@@ -14,10 +14,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
-// Engine header file
-#include "Eye/Log.h"
-
+// Platform Include
 #ifdef EYE_PLATFORM_WINDOWS
-	#include <Windows.h>
+#include <Windows.h>
 #endif // EYE_PLATFORM_WINDOWS
 
+// Engine header file
+#include "Eye/Log.h"

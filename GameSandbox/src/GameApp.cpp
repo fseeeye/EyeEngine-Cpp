@@ -8,7 +8,7 @@ public:
 
 	void OnUpdate() override
 	{
-		EYE_TRACE("ExampleLayer::Update");
+		//EYE_TRACE("ExampleLayer::Update");
 	}
 
 	void OnEvent(Eye::Event& event) override

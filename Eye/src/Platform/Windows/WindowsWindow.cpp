@@ -122,22 +122,32 @@ namespace Eye {
 			// TODO: remapping keyboard int id
 			switch (action)
 			{
-				case GLFW_PRESS:
-				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
-				}
 				case GLFW_RELEASE:
 				{
 					KeyReleasedEvent event(key);
 					data.EventCallback(event);
+					break;
+				}
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event(key, 0);
+					data.EventCallback(event);
+					break;
 				}
 				case GLFW_REPEAT:
 				{
 					KeyPressedEvent event(key, 1);
 					data.EventCallback(event);
+					break;
 				}
 			}
+		});
+		// Char Event (Unicode char input)
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int charcode) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			KeyTypedEvent event(charcode); // Warning: unsigned int to int
+			data.EventCallback(event);
 		});
 		// Mouse Button Event
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {

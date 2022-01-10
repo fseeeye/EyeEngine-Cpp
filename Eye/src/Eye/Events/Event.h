@@ -20,7 +20,7 @@ namespace Eye
 		// Application Events ( Application Category )
 		AppTick, AppUpdate, AppRender,
 		// Key Events ( Keyboard + Input Category )
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		// Mouse Events ( Mouse/MouseButton + Input Category )
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};

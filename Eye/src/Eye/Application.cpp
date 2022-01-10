@@ -1,13 +1,12 @@
 ﻿#include "eyepch.h"
 #include "Application.h"
 
-#include "Log.h"
+#include "Eye/Core.h"
+#include "Eye/Log.h"
 
 #include <Glad/gl.h>
 
 namespace Eye {
-
-#define BIND_EVENT_FN_1(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
 
@@ -20,7 +19,7 @@ namespace Eye {
 		// create Window
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		// set event callback function to Window
-		m_Window->SetEventCallback(BIND_EVENT_FN_1(OnEvent));
+		m_Window->SetEventCallback(EYE_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -50,10 +49,10 @@ namespace Eye {
 		// create EventDispatcher
 		EventDispatcher dispatcher(e);
 
-		// TODO: handle all events
 		// check event type and dispatch it to correct func
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN_1(OnWindowClosed)); // dispatch Window Closed Event
+		dispatcher.Dispatch<WindowCloseEvent>(EYE_BIND_EVENT_FN(Application::OnWindowClosed)); // dispatch Window Closed Event
 
+		// boardcast event to layers
 		if (!e.Handled) {
 			// dispatch event into layers (from button to top)
 			for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
