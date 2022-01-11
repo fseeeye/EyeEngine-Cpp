@@ -68,6 +68,8 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\eyepch.h" />
+    <ClInclude Include="src\Eye\Input.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">
@@ -92,5 +94,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\eyepch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
