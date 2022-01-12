@@ -159,9 +159,11 @@
     <ClInclude Include="src\Eye\Events\MouseEvent.h" />
     <ClInclude Include="src\Eye\ImGui\ImGUiLayer.h" />
     <ClInclude Include="src\Eye\Input.h" />
+    <ClInclude Include="src\Eye\KeyCodes.h" />
     <ClInclude Include="src\Eye\Layer.h" />
     <ClInclude Include="src\Eye\LayerStack.h" />
     <ClInclude Include="src\Eye\Log.h" />
+    <ClInclude Include="src\Eye\MouseButtonCodes.h" />
     <ClInclude Include="src\Eye\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3Loader.h" />

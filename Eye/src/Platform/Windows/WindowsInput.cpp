@@ -12,6 +12,7 @@ namespace Eye {
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		// TODO: EYE Key to GLFW Key
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT; // Waring: only GLFW_PRESS
 	}
@@ -19,6 +20,7 @@ namespace Eye {
 	bool WindowsInput::IsMouseButtonPreesedImpl(int button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		// TODO: EYE Button to GLFW Key
 		auto state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
 	}

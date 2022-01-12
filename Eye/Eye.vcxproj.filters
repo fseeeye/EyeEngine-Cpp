@@ -70,6 +70,8 @@
     <ClInclude Include="src\eyepch.h" />
     <ClInclude Include="src\Eye\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Eye\KeyCodes.h" />
+    <ClInclude Include="src\Eye\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Eye\Application.cpp">

@@ -9,11 +9,21 @@ public:
 	void OnUpdate() override
 	{
 		//EYE_TRACE("ExampleLayer::Update");
+
+		if (Eye::Input::IsKeyPressed(EYE_KEY_TAB))
+			EYE_TRACE("key(TAB) is pressed! (poll)");
 	}
 
 	void OnEvent(Eye::Event& event) override
 	{
-		EYE_TRACE("ExampleLayer::OnEvent: {0}", event);
+		//EYE_TRACE("ExampleLayer::OnEvent: {0}", event);
+		if (event.GetEventType() == Eye::EventType::KeyPressed)
+		{
+			Eye::KeyPressedEvent& e = (Eye::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == EYE_KEY_TAB)
+				EYE_TRACE("key(TAB) is pressed! (event)");
+			EYE_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
