@@ -1,9 +1,12 @@
 [submodule "Eye/vendor/spdlog"]
 	path = Eye/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+	ignore = dirty
 [submodule "Eye/vendor/GLFW"]
 	path = Eye/vendor/GLFW
 	url = https://github.com/fseeeye/glfw
+	ignore = dirty
 [submodule "Eye/vendor/imgui"]
 	path = Eye/vendor/imgui
 	url = https://github.com/fseeeye/imgui/
+	ignore = dirty
