@@ -10,3 +10,6 @@
 	path = Eye/vendor/imgui
 	url = https://github.com/fseeeye/imgui/
 	ignore = dirty
+[submodule "Eye/vendor/glm"]
+	path = Eye/vendor/glm
+	url = https://github.com/g-truc/glm

@@ -19,6 +19,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Eye/vendor/GLFW/include"
 IncludeDir["Glad"] = "Eye/vendor/Glad/include"
 IncludeDir["ImGui"] = "Eye/vendor/imgui"
+IncludeDir["glm"] = "Eye/vendor/glm"
 
 -- include `premake5.lua` of vendors 
 group "Dependencies"
@@ -44,6 +45,8 @@ project "Eye"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs -- addtional include directories
@@ -52,7 +55,8 @@ project "Eye"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -120,7 +124,8 @@ project "GameSandbox"
     includedirs -- addtional include directories
     {
         "Eye/vendor/spdlog/include",
-        "Eye/src"
+        "Eye/src",
+        "%{IncludeDir.glm}"
     }
 
     links
