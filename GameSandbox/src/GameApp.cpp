@@ -18,10 +18,9 @@ public:
 
 	void OnImGuiRender() override
 	{
-		// TODO: solve link error
-		//ImGui::Begin("TestGameApp");
-		//ImGui::Text("Eye is Openning!");
-		//ImGui::End();
+		ImGui::Begin("TestGameApp");
+		ImGui::Text("Eye is Openning!");
+		ImGui::End();
 	}
 
 	void OnEvent(Eye::Event& event) override

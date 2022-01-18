@@ -31,9 +31,11 @@ group ""
 
 project "Eye"
     location "Eye"
-    kind "SharedLib" -- dynamic library (DLL)
+    -- kind "SharedLib" -- dynamic library (DLL)
+    kind "StaticLib" -- static library
     language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- target directory
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}") -- intermediate directory
@@ -48,6 +50,11 @@ project "Eye"
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
     }
+
+    defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 
     includedirs -- addtional include directories
     {
@@ -69,7 +76,6 @@ project "Eye"
 
     -- ref: https://github.com/premake/premake-core/wiki/filter
     filter "system:windows" -- filter for Windows platform
-        cppdialect "C++17"
         -- staticruntime "On"
         systemversion "latest" -- windows SDK version
 
@@ -82,10 +88,10 @@ project "Eye"
         }
 
         -- ref: https://github.com/premake/premake-core/wiki/postbuildcommands
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/GameSandbox\"") -- copy Eye Engine dll to GameSandbox bin dir
-        }
+        -- postbuildcommands
+        -- {
+        --     ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/GameSandbox\"") -- copy Eye Engine dll to GameSandbox bin dir
+        -- }
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"
@@ -110,7 +116,8 @@ project "GameSandbox"
     location "GameSandbox"
     kind "ConsoleApp" -- exe
     language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- target directory
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}") -- intermediate directory
@@ -136,7 +143,6 @@ project "GameSandbox"
 
     -- ref: https://github.com/premake/premake-core/wiki/filter
     filter "system:windows" -- filter for Windows platform
-        cppdialect "C++17"
         systemversion "latest" -- windows SDK version (set spec version or use "latest")
 
         -- ref: https://github.com/premake/premake-core/wiki/defines
