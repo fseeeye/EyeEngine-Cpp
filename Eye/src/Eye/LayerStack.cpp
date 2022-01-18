@@ -6,7 +6,6 @@ namespace Eye {
 
 	LayerStack::LayerStack()
 	{
-		m_LayerInsertPos = m_Layers.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -17,7 +16,8 @@ namespace Eye {
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsertPos = m_Layers.emplace(m_LayerInsertPos, layer);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+		++m_LayerInsertIndex;
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
@@ -32,7 +32,7 @@ namespace Eye {
 		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
-			--m_LayerInsertPos;
+			--m_LayerInsertIndex;
 		}
 	}
 

@@ -1,5 +1,7 @@
 ﻿#include <Eye.h>
 
+#include <imgui/imgui.h>
+
 class ExampleLayer : public Eye::Layer
 {
 public:
@@ -12,6 +14,14 @@ public:
 
 		if (Eye::Input::IsKeyPressed(EYE_KEY_TAB))
 			EYE_TRACE("key(TAB) is pressed! (poll)");
+	}
+
+	void OnImGuiRender() override
+	{
+		// TODO: solve link error
+		//ImGui::Begin("TestGameApp");
+		//ImGui::Text("Eye is Openning!");
+		//ImGui::End();
 	}
 
 	void OnEvent(Eye::Event& event) override
@@ -33,7 +43,6 @@ public:
 	Game()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Eye::ImGuiLayer());
 	}
 
 	~Game()

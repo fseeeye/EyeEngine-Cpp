@@ -124,6 +124,7 @@ project "GameSandbox"
     includedirs -- addtional include directories
     {
         "Eye/vendor/spdlog/include",
+        "Eye/vendor",
         "Eye/src",
         "%{IncludeDir.glm}"
     }

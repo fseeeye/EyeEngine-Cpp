@@ -165,8 +165,6 @@
     <ClInclude Include="src\Eye\Log.h" />
     <ClInclude Include="src\Eye\MouseButtonCodes.h" />
     <ClInclude Include="src\Eye\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGL3Loader.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\eyepch.h" />
@@ -592,7 +590,6 @@
     <ClCompile Include="src\Eye\Layer.cpp" />
     <ClCompile Include="src\Eye\LayerStack.cpp" />
     <ClCompile Include="src\Eye\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGL3.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\eyepch.cpp">

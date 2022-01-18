@@ -21,6 +21,10 @@ namespace Eye {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		// set event callback function to Window
 		m_Window->SetEventCallback(EYE_BIND_EVENT_FN(Application::OnEvent));
+
+		// create ImGuiLayer and push over into LayerStack
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -41,6 +45,13 @@ namespace Eye {
 
 			//auto [x, y] = Input::GetMousePosition();
 			//EYE_CORE_TRACE("Polling Mouse Position: {0}, {1}", x, y);
+
+			// Update ImGui
+			// TODO: add to Render Thread
+			m_ImGuiLayer->BeginImGuiRender();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->EndImGuiRender();
 
 			m_Window->OnUpdate();
 		}

@@ -4,10 +4,11 @@
 
 #include "Window.h"
 
-#include "Events/Event.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
-#include "Events/ApplicationEvent.h"
+#include "Eye/Events/Event.h"
+#include "Eye/Events/KeyEvent.h"
+#include "Eye/Events/MouseEvent.h"
+#include "Eye/Events/ApplicationEvent.h"
+#include "Eye/ImGui/ImGUiLayer.h"
 
 #include "LayerStack.h"
 
@@ -32,8 +33,9 @@ namespace Eye {
 		bool OnWindowClosed(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
-		bool m_Running;
+		bool m_Running = true;
 
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 	// singleton
 	public:
