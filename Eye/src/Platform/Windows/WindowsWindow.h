@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Eye/Window.h"
+#include "Eye/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"
 
@@ -30,6 +31,7 @@ namespace Eye {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		// all Window specific data passing to GLFWwindow
 		struct WindowData

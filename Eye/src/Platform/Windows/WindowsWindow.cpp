@@ -1,12 +1,11 @@
 ﻿#include "eyepch.h"
+#include "WindowsWindow.h"
 
 #include "Eye/Events/KeyEvent.h"
 #include "Eye/Events/MouseEvent.h"
 #include "Eye/Events/ApplicationEvent.h"
 
-#include "WindowsWindow.h"
-
-#include <Glad/gl.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Eye {
 	
@@ -36,7 +35,7 @@ namespace Eye {
 	void WindowsWindow::OnUpdate()
 	{
 		/* Swap front and back buffers */
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 
 		/* Poll for and process events */
 		glfwPollEvents();
@@ -80,14 +79,11 @@ namespace Eye {
 		/* Create a windowed mode window and its OpenGL context */
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		EYE_CORE_ASSERT(m_Window, "Could not create Window!");
+		// Create OpenGL Context
+		m_Context = new OpenGLContext(m_Window);
 
-		/* Make the window's context current */
-		glfwMakeContextCurrent(m_Window);
-
-		// Init Glad
-		int version = gladLoadGL(glfwGetProcAddress);
-		EYE_CORE_ASSERT(version, "Failed to initialize Glad!");
-		EYE_CORE_INFO("OpenGL version {0}.{1}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+		// Init OpenGL Context
+		m_Context->Init();
 
 		// Set VSync
 		SetVSync(m_Data.VSync);
