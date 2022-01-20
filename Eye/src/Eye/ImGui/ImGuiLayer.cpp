@@ -83,7 +83,7 @@ namespace Eye {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Window& window = Application::Get().GetWindow();
-		io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
+		io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 
 		// Rendering
 		ImGui::Render();

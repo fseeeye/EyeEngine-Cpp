@@ -7,11 +7,11 @@ namespace Eye {
 	class EYE_API MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(float x, float y)
+		MouseMovedEvent(double x, double y)
 			: m_MouseX(x), m_MouseY(y) {}
 
-		inline float GetX() const { return m_MouseX; }
-		inline float GetY() const { return m_MouseY; }
+		inline double GetX() const { return m_MouseX; }
+		inline double GetY() const { return m_MouseY; }
 
 		std::string ToString() const override
 		{
@@ -23,18 +23,18 @@ namespace Eye {
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		float m_MouseX, m_MouseY;
+		double m_MouseX, m_MouseY;
 	};
 
 	// Actual Event: Mouse Scrolled
 	class EYE_API MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(double xOffset, double yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset) {}
 
-		inline float GetXOffset() const { return m_XOffset; }
-		inline float GetYOffset() const { return m_YOffset; }
+		inline double GetXOffset() const { return m_XOffset; }
+		inline double GetYOffset() const { return m_YOffset; }
 
 		std::string ToString() const override
 		{
@@ -46,7 +46,7 @@ namespace Eye {
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		float m_XOffset, m_YOffset;
+		double m_XOffset, m_YOffset;
 	};
 
 	// Virtual Event: Mouse Button

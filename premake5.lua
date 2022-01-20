@@ -52,9 +52,9 @@ project "Eye"
     }
 
     defines
-	{
-		"_CRT_SECURE_NO_WARNINGS"
-	}
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
 
     includedirs -- addtional include directories
     {
