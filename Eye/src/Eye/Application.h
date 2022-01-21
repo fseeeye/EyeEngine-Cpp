@@ -37,6 +37,8 @@ namespace Eye {
 
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	// singleton
 	public:
 		inline static Application& Get() { return *s_Instance; }
