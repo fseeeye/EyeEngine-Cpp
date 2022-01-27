@@ -8,7 +8,10 @@
 #include "Eye/Events/KeyEvent.h"
 #include "Eye/Events/MouseEvent.h"
 #include "Eye/Events/ApplicationEvent.h"
+
 #include "Eye/ImGui/ImGUiLayer.h"
+
+#include "Eye/Renderer/Shader.h"
 
 #include "LayerStack.h"
 
@@ -39,6 +42,7 @@ namespace Eye {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	// singleton
 	public:
 		inline static Application& Get() { return *s_Instance; }
