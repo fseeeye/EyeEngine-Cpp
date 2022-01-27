@@ -12,6 +12,7 @@
 #include "Eye/ImGui/ImGUiLayer.h"
 
 #include "Eye/Renderer/Shader.h"
+#include "Eye/Renderer/Buffer.h"
 
 #include "LayerStack.h"
 
@@ -41,8 +42,10 @@ namespace Eye {
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	// singleton
 	public:
 		inline static Application& Get() { return *s_Instance; }
