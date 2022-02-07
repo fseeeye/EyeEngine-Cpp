@@ -11,6 +11,27 @@ namespace Eye {
 
 	Application* Application::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case Eye::ShaderDataType::Float:  return GL_FLOAT;
+			case Eye::ShaderDataType::Float2: return GL_FLOAT;
+			case Eye::ShaderDataType::Float3: return GL_FLOAT;
+			case Eye::ShaderDataType::Float4: return GL_FLOAT;
+			case Eye::ShaderDataType::Mat3:   return GL_FLOAT;
+			case Eye::ShaderDataType::Mat4:   return GL_FLOAT;
+			case Eye::ShaderDataType::Int:    return GL_INT;
+			case Eye::ShaderDataType::Int2:   return GL_INT;
+			case Eye::ShaderDataType::Int3:   return GL_INT;
+			case Eye::ShaderDataType::Int4:   return GL_INT;
+			case Eye::ShaderDataType::Bool:   return GL_BOOL;
+		}
+
+		EYE_CORE_ASSERT(false, "Unknow Shader Data Type!");
+		return 0;
+	}
+
 	Application::Application()
 	{
 		// Create singleton of the Application class
@@ -32,16 +53,30 @@ namespace Eye {
 		glBindVertexArray(m_VertexArray);
 
 		// Vertex Buffer
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f,
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f
 		};
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		// Bind Vertex Layout
-		glEnableVertexAttribArray(0); // enable vertex attribute array 0
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); // specify vertex attribute data layout & bind 
+		{
+			BufferLayout layout = {
+				{ ShaderDataType::Float3, "a_Position" },
+				{ ShaderDataType::Float4, "a_Color" },
+			};
+			m_VertexBuffer->SetLayout(layout);
+		}
+
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index); // enable vertex attribute array 0
+			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(element.Offset)); // specify vertex attribute data layout & bind
+			++index;
+		}
 
 		// Index Buffer
 		uint32_t indices[3] = { 0, 1, 2 };
@@ -52,12 +87,15 @@ namespace Eye {
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 			
 			void main()
 			{
 				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
@@ -68,10 +106,12 @@ namespace Eye {
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			in vec4 v_Color;
 			
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = vec4(v_Color);
 			}
 		)";
 
