@@ -3,6 +3,10 @@
 bin/
 bin-int/
 
-# Files
+# VS Files
 *.user
-*/imgui.ini
+*.sln
+*.vcxproj
+*.vcxproj.filters
+# Other Files
+**/imgui.ini
