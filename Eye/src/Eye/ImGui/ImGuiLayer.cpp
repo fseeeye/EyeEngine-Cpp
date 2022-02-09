@@ -19,8 +19,6 @@ namespace Eye {
 	{
 	}
 
-	ImGuiLayer::~ImGuiLayer() = default;
-
 	// ref: https://github.com/fseeeye/imgui/blob/master/examples/example_glfw_opengl3/main.cpp#L64-L89s
 	void ImGuiLayer::OnAttach()
 	{

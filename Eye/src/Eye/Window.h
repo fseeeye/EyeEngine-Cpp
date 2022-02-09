@@ -28,7 +28,7 @@ namespace Eye {
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
-		virtual ~Window() {}
+		virtual ~Window() = default;
 
 		// Window create function, which return system based Window
 		static Window* Create(const WindowProps& props = WindowProps());

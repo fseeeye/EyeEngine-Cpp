@@ -10,9 +10,4 @@ namespace Eye {
 
 	}
 
-	Layer::~Layer()
-	{
-
-	}
-
 }

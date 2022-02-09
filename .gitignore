@@ -8,5 +8,3 @@ bin-int/
 *.sln
 *.vcxproj
 *.vcxproj.filters
-# Other Files
-**/imgui.ini
