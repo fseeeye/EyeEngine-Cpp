@@ -1,19 +1,18 @@
 ﻿#pragma once
 
-namespace Eye {
+#include "RenderCommand.h"
 
-	enum class RendererAPI
-	{
-		None = 0,
-		OpenGL = 1
-	};
+namespace Eye {
 
 	class Renderer
 	{
 	public:
-		inline static RendererAPI GetCurrentAPI() { return s_RendererAPI; }
-	private:
-		static RendererAPI s_RendererAPI;
+		static void BeginScene();
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetCurrentAPI() { return RendererAPI::GetAPI(); }
 	};
 
 }

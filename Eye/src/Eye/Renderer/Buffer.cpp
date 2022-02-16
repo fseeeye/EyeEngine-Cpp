@@ -12,9 +12,9 @@ namespace Eye {
 		// decide which api to use
 		switch (Renderer::GetCurrentAPI())
 		{
-			case RendererAPI::None:   EYE_CORE_ASSERT(false, "RendererAPI::None is not currently supported!");return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
-			default:                  EYE_CORE_ASSERT(false, "Unknow RendererAPI!"); return nullptr;
+			case RendererAPI::API::None:   EYE_CORE_ASSERT(false, "RendererAPI::None is not currently supported!");return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+			default:                       EYE_CORE_ASSERT(false, "Unknow RendererAPI!"); return nullptr;
 		}
 	}
 
@@ -23,9 +23,9 @@ namespace Eye {
 		// decide which api to use
 		switch (Renderer::GetCurrentAPI())
 		{
-			case RendererAPI::None:   EYE_CORE_ASSERT(false, "RendererAPI::None is not currently supported!"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
-			default:                  EYE_CORE_ASSERT(false, "Unknow RendererAPI!"); return nullptr;
+			case RendererAPI::API::None:   EYE_CORE_ASSERT(false, "RendererAPI::None is not currently supported!"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, count);
+			default:                       EYE_CORE_ASSERT(false, "Unknow RendererAPI!"); return nullptr;
 		}
 	}
 

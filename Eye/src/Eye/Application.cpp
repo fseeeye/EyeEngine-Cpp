@@ -5,6 +5,8 @@
 #include "Eye/Log.h"
 #include "Eye/Input.h"
 
+#include "Eye/Renderer/Renderer.h"
+
 #include <Glad/gl.h>
 
 namespace Eye {
@@ -143,21 +145,20 @@ namespace Eye {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1.f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
+			RenderCommand::Clear();
 
-			// TEMP: draw a square
+			Renderer::BeginScene(); // TODO: camera / lights / environment
+
+			// draw a background square
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
+			Renderer::Submit(m_SquareVA);
 
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-			// TEMP: draw a triangle
-			// Bind Shader & Vertex Array
+			// draw a triangle
 			m_Shader->Bind();
-			m_VertexArray->Bind();
+			Renderer::Submit(m_VertexArray);
 
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::EndScene();
 
 			// Udpate Layers
 			for (Layer* layer : m_LayerStack)
