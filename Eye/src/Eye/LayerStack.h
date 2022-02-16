@@ -11,7 +11,7 @@ namespace Eye {
 	class EYE_API LayerStack
 	{
 	public:
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 
 		// tips: overlay always be after layer.

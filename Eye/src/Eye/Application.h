@@ -29,8 +29,8 @@ namespace Eye {
 
 		void OnEvent(Event& e);
 
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* layer);
+		inline void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+		inline void PushOverlay(Layer* layer) { m_LayerStack.PushOverlay(layer); }
 
 		inline Window& GetWindow() { return *m_Window; }
 	private:

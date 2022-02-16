@@ -197,18 +197,6 @@ namespace Eye {
 		}
 	}
 
-	void Application::PushLayer(Layer* layer)
-	{
-		m_LayerStack.PushLayer(layer);
-		layer->OnAttach();
-	}
-
-	void Application::PushOverlay(Layer* layer)
-	{
-		m_LayerStack.PushOverlay(layer);
-		layer->OnAttach();
-	}
-
 	// Handle Window Closed Event
 	bool Application::OnWindowClosed(WindowCloseEvent& e)
 	{
