@@ -11,16 +11,11 @@
 
 #include "Eye/ImGui/ImGUiLayer.h"
 
-#include "Eye/Renderer/Shader.h"
-#include "Eye/Renderer/Buffer.h"
-#include "Eye/Renderer/VertexArray.h"
-#include "Eye/Renderer/OrthographicCamera.h"
-
 #include "LayerStack.h"
 
 namespace Eye {
 
-	class EYE_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -44,14 +39,6 @@ namespace Eye {
 
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-
-		OrthographicCamera m_OrthoCamera;
 
 	// singleton
 	public:
