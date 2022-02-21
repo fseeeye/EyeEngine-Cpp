@@ -2,16 +2,20 @@
 
 // For use by Eye Game Application
 
+// --------- Basis ---------------
 #include "Eye/Application.h"
-
 #include "Eye/Log.h"
-
 #include "Eye/Layer.h"
+// -------------------------------
 
-// Inputs
+// --------- Inputs --------------
 #include "Eye/Input.h"
 #include "Eye/KeyCodes.h"
 #include "Eye/MouseButtonCodes.h"
+// -------------------------------
+
+// Time
+#include "Eye/Core/Timestep.h"
 
 // ImGui
 #include "Eye/ImGui/ImGuiLayer.h"

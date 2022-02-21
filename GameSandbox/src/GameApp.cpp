@@ -125,24 +125,24 @@ public:
 		m_BlueShader.reset(new Eye::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Eye::Timestep deltaTime) override
 	{
 		/* Handle Camera transform (View Matrix) */
 		// TODO: Delta Time
 		if (Eye::Input::IsKeyPressed(EYE_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime;
 		else if (Eye::Input::IsKeyPressed(EYE_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * deltaTime;
 
 		if (Eye::Input::IsKeyPressed(EYE_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * deltaTime;
 		else if (Eye::Input::IsKeyPressed(EYE_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
 
 		if (Eye::Input::IsKeyPressed(EYE_KEY_Q))
-			m_CameraRotationAngle += m_CameraRotationSpeed;
+			m_CameraRotationAngle += m_CameraRotationSpeed * deltaTime;
 		else if (Eye::Input::IsKeyPressed(EYE_KEY_E))
-			m_CameraRotationAngle -= m_CameraRotationSpeed;
+			m_CameraRotationAngle -= m_CameraRotationSpeed * deltaTime;
 
 		m_OrthoCamera.SetPosition(m_CameraPosition);
 		m_OrthoCamera.SetRotation(m_CameraRotationAngle);
@@ -181,8 +181,8 @@ private:
 	Eye::OrthographicCamera m_OrthoCamera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraRotationAngle = 0.f;
-	float m_CameraMoveSpeed = 0.1f;
-	float m_CameraRotationSpeed = 2.f;
+	float m_CameraMoveSpeed = 1.f;
+	float m_CameraRotationSpeed = 60.f;
 };
 
 class Game : public Eye::Application

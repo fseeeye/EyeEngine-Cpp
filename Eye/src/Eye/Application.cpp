@@ -4,8 +4,9 @@
 #include "Eye/Core.h"
 #include "Eye/Log.h"
 #include "Eye/Input.h"
+#include "Eye/Core/Timestep.h"
 
-#include <Glad/gl.h>
+#include <glfw/glfw3.h>
 
 namespace Eye {
 
@@ -22,6 +23,8 @@ namespace Eye {
 		// set event callback function to Window
 		m_Window->SetEventCallback(EYE_BIND_EVENT_FN(Application::OnEvent));
 
+		m_Window->SetVSync(true);
+
 		// create ImGuiLayer and push over into LayerStack
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -31,9 +34,14 @@ namespace Eye {
 	{
 		while (m_Running)
 		{
+			// Calculate delta time
+			float time = static_cast<float>(glfwGetTime()); // TODO: Platform::GetTime()
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			// Udpate Layers
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			// Update ImGui
 			// TODO: add to Render Thread

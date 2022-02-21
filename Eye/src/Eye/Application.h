@@ -40,6 +40,8 @@ namespace Eye {
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
+		float m_LastFrameTime;
+
 	// singleton
 	public:
 		inline static Application& Get() { return *s_Instance; }
