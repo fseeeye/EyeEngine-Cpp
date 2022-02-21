@@ -14,6 +14,7 @@
 #include "Eye/Renderer/Shader.h"
 #include "Eye/Renderer/Buffer.h"
 #include "Eye/Renderer/VertexArray.h"
+#include "Eye/Renderer/OrthographicCamera.h"
 
 #include "LayerStack.h"
 
@@ -37,6 +38,7 @@ namespace Eye {
 		// Window Close Event Handler
 		bool OnWindowClosed(WindowCloseEvent& e);
 
+	private:
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 
@@ -48,6 +50,9 @@ namespace Eye {
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+
+		OrthographicCamera m_OrthoCamera;
+
 	// singleton
 	public:
 		inline static Application& Get() { return *s_Instance; }

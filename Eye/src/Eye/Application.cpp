@@ -14,6 +14,7 @@ namespace Eye {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_OrthoCamera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		// Create singleton of the Application class
 		EYE_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -34,9 +35,9 @@ namespace Eye {
 
 		// Vertex Buffer
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+			-0.5f, -0.37f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.37f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.37f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 		std::shared_ptr<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -83,6 +84,8 @@ namespace Eye {
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 			out vec4 v_Color;
 			
@@ -90,7 +93,7 @@ namespace Eye {
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -116,12 +119,14 @@ namespace Eye {
 
 			layout(location = 0) in vec3 a_Position;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 			
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -148,15 +153,16 @@ namespace Eye {
 			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene(); // TODO: camera / lights / environment
+			m_OrthoCamera.SetPosition({ 0.5f, 0.5f, 0.f });
+			m_OrthoCamera.SetRotation(45.f);
+
+			Renderer::BeginScene(m_OrthoCamera);
 
 			// draw a background square
-			m_BlueShader->Bind();
-			Renderer::Submit(m_SquareVA);
+			Renderer::Submit(m_BlueShader, m_SquareVA);
 
 			// draw a triangle
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 
 			Renderer::EndScene();
 
