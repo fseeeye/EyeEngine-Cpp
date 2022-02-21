@@ -3,17 +3,17 @@
 
 namespace Eye {
 
-	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
 	void Renderer::BeginScene(OrthographicCamera& orthoCamera)
 	{
-		m_SceneData->ViewProjectionMatrix = orthoCamera.GetViewProjectionMatrix();
+		s_SceneData->ViewProjectionMatrix = orthoCamera.GetViewProjectionMatrix();
 		// TODO: lights / environment
 	}
 
 	void Renderer::EndScene()
 	{
-		// TODO
+		// TODOs
 	}
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
@@ -22,7 +22,7 @@ namespace Eye {
 		
 		// Shader set uniform
 		shader->Bind();
-		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 
 		// Vertex Array Bind
 		vertexArray->Bind();
