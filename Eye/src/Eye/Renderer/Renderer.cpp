@@ -16,13 +16,12 @@ namespace Eye {
 		// TODOs
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform /*= glm::mat4(1.f)*/)
 	{
-		// TODO: set object position
-		
 		// Shader set uniform
 		shader->Bind();
 		shader->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_Model", transform);
 
 		// Vertex Array Bind
 		vertexArray->Bind();

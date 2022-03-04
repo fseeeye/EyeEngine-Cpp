@@ -1,6 +1,8 @@
 ﻿#include <Eye.h>
 
 #include <imgui/imgui.h>
+#include <glm/gtc/matrix_transform.hpp>
+
 
 class ExampleLayer : public Eye::Layer
 {
@@ -40,10 +42,10 @@ public:
 		// TEMP: Draw Background Square
 		m_SquareVA.reset(Eye::VertexArray::Create());
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f,
 		};
 		std::shared_ptr<Eye::VertexBuffer> squareVB;
 		squareVB.reset(Eye::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
@@ -64,6 +66,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -72,7 +75,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -99,13 +102,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
 
 			out vec3 v_Position;
 			
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -128,7 +132,6 @@ public:
 	void OnUpdate(Eye::Timestep deltaTime) override
 	{
 		/* Handle Camera transform (View Matrix) */
-		// TODO: Delta Time
 		if (Eye::Input::IsKeyPressed(EYE_KEY_LEFT))
 			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime;
 		else if (Eye::Input::IsKeyPressed(EYE_KEY_RIGHT))
@@ -153,8 +156,19 @@ public:
 
 		Eye::Renderer::BeginScene(m_OrthoCamera);
 
-		// draw a background square
-		Eye::Renderer::Submit(m_BlueShader, m_SquareVA);
+		// First, draw a background square at below
+		glm::mat4 transform;
+		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.1f));
+		for (int i = 0; i < 10; ++i)
+		{
+			for (int j = 0; j < 10; ++j)
+			{
+				glm::vec3 pos(i * 0.11f, j * 0.11f, 0.f);
+				transform = glm::translate(glm::mat4(1.f), pos) * scale;
+
+				Eye::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+			}
+		}
 		// draw a triangle
 		Eye::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -172,12 +186,15 @@ public:
 	}
 
 private:
+	// Triangle
 	std::shared_ptr<Eye::Shader> m_Shader;
 	std::shared_ptr<Eye::VertexArray> m_VertexArray;
 
+	// Background Square
 	std::shared_ptr<Eye::Shader> m_BlueShader;
 	std::shared_ptr<Eye::VertexArray> m_SquareVA;
 
+	// Camera
 	Eye::OrthographicCamera m_OrthoCamera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraRotationAngle = 0.f;
