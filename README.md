@@ -26,7 +26,23 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 
 ## RoadMap
 - [X] Basic System
+  - [X] Logging System
+  - [X] Build System
+  - [X] Event System & Polling Input
+  - [X] PCH
+  - [X] OpenGL Support
+  - [X] ImGUI
+  - [X] Keycode & Mousecode
+  - [X] Math Support
 - [ ] Rendering
+  - [X] (Vertex & Index) Buffer
+  - [X] Vertex Buffer Layout
+  - [X] Vertex Array
+  - [X] Draw Call
+  - [X] 2D Camera (View & Projection Transform)
+  - [X] DeltaTime
+  - [X] Model Transform
+  - [ ] Matrial System
 - [ ] Texture and Model Format
 - [ ] Serialization
 - [ ] Entity Component System
