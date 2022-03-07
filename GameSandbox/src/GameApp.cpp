@@ -96,7 +96,7 @@ public:
 
 		m_Shader.reset(new Eye::Shader(vertexSrc, fragmentSrc));
 
-		std::string blueShaderVertexSrc = R"(
+		std::string flatShaderVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
@@ -113,20 +113,22 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+
+			uniform vec4 u_Color;
 			
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color);
 			}
 		)";
 
-		m_BlueShader.reset(new Eye::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_FlatShader.reset(new Eye::Shader(flatShaderVertexSrc, flatShaderFragmentSrc));
 	}
 
 	void OnUpdate(Eye::Timestep deltaTime) override
@@ -156,7 +158,17 @@ public:
 
 		Eye::Renderer::BeginScene(m_OrthoCamera);
 
-		// First, draw a background square at below
+		// First, draw background squares at below
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.f);
+
+		// TODO: Material System
+		//Eye::MaterialRef material = new Eye::Matrial(m_FlatShader);
+		//Eye::MaterialInstanceRef mi = new Eye::MatrialInstance(material);
+		//mi->SetValue("u_Color", redColor);
+		//mi->SetTexture("u_AlbedoMap", texture);
+		//squareMesh->SetMaterial(mi);
+
 		glm::mat4 transform;
 		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.1f));
 		for (int i = 0; i < 10; ++i)
@@ -166,7 +178,14 @@ public:
 				glm::vec3 pos(i * 0.11f, j * 0.11f, 0.f);
 				transform = glm::translate(glm::mat4(1.f), pos) * scale;
 
-				Eye::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				if (j % 2 == 0)
+					m_FlatShader->UploadUniformFloat4("u_Color", redColor);
+				else
+					m_FlatShader->UploadUniformFloat4("u_Color", blueColor);
+
+				Eye::Renderer::Submit(m_FlatShader, m_SquareVA, transform);
+				// TODO: Material System
+				//Eye::Renderer::Submit(mi, m_SquareVA, transform);
 			}
 		}
 		// draw a triangle
@@ -191,7 +210,7 @@ private:
 	std::shared_ptr<Eye::VertexArray> m_VertexArray;
 
 	// Background Square
-	std::shared_ptr<Eye::Shader> m_BlueShader;
+	std::shared_ptr<Eye::Shader> m_FlatShader;
 	std::shared_ptr<Eye::VertexArray> m_SquareVA;
 
 	// Camera

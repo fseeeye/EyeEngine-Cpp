@@ -23,6 +23,9 @@ namespace Eye {
 		shader->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		shader->UploadUniformMat4("u_Model", transform);
 
+		// TODO: Material System
+		//mi.Bind();
+
 		// Vertex Array Bind
 		vertexArray->Bind();
 		// Draw Call
