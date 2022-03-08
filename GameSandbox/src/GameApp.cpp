@@ -1,7 +1,11 @@
 ﻿#include <Eye.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include <imgui/imgui.h>
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
 class ExampleLayer : public Eye::Layer
@@ -94,7 +98,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new Eye::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Eye::Shader::Create(vertexSrc, fragmentSrc));
 
 		std::string flatShaderVertexSrc = R"(
 			#version 330 core
@@ -120,15 +124,15 @@ public:
 
 			in vec3 v_Position;
 
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 			
 			void main()
 			{
-				color = vec4(u_Color);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_FlatShader.reset(new Eye::Shader(flatShaderVertexSrc, flatShaderFragmentSrc));
+		m_FlatShader.reset(Eye::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
 	}
 
 	void OnUpdate(Eye::Timestep deltaTime) override
@@ -159,8 +163,8 @@ public:
 		Eye::Renderer::BeginScene(m_OrthoCamera);
 
 		// First, draw background squares at below
-		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.f);
-		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.f);
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_FlatShader)->Bind();
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_FlatShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		// TODO: Material System
 		//Eye::MaterialRef material = new Eye::Matrial(m_FlatShader);
@@ -175,19 +179,16 @@ public:
 		{
 			for (int j = 0; j < 10; ++j)
 			{
+				// calc transform
 				glm::vec3 pos(i * 0.11f, j * 0.11f, 0.f);
 				transform = glm::translate(glm::mat4(1.f), pos) * scale;
-
-				if (j % 2 == 0)
-					m_FlatShader->UploadUniformFloat4("u_Color", redColor);
-				else
-					m_FlatShader->UploadUniformFloat4("u_Color", blueColor);
 
 				Eye::Renderer::Submit(m_FlatShader, m_SquareVA, transform);
 				// TODO: Material System
 				//Eye::Renderer::Submit(mi, m_SquareVA, transform);
 			}
 		}
+		 
 		// draw a triangle
 		Eye::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -196,7 +197,11 @@ public:
 
 	void OnImGuiRender() override
 	{
-		
+		ImGui::Begin("Settings");
+
+		ImGui::ColorEdit3("SquareColor", glm::value_ptr(m_SquareColor));
+
+		ImGui::End();
 	}
 
 	void OnEvent(Eye::Event& event) override
@@ -212,6 +217,7 @@ private:
 	// Background Square
 	std::shared_ptr<Eye::Shader> m_FlatShader;
 	std::shared_ptr<Eye::VertexArray> m_SquareVA;
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	// Camera
 	Eye::OrthographicCamera m_OrthoCamera;
