@@ -63,7 +63,7 @@ namespace Eye {
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(index); // enable vertex attribute array 0
-			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*)element.Offset); // specify vertex attribute data layout & bind
+			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(static_cast<intptr_t>(element.Offset))); // specify vertex attribute data layout & bind
 			++index;
 		}
 	}
