@@ -12,7 +12,7 @@ namespace Eye {
 		static void BeginScene(OrthographicCamera& orthoCamera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.f));
+		static void Submit(const StrongRef<Shader>& shader, const StrongRef<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.f));
 
 		inline static RendererAPI::API GetCurrentAPI() { return RendererAPI::GetAPI(); }
 

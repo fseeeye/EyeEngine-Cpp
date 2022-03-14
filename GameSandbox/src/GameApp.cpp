@@ -24,7 +24,7 @@ public:
 			 0.5f, -0.37f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.37f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
-		std::shared_ptr<Eye::VertexBuffer> vertexBuffer;
+		Eye::StrongRef<Eye::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Eye::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		// Vertex Layout
@@ -38,7 +38,7 @@ public:
 
 		// Index Buffer
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Eye::IndexBuffer> indexBuffer;
+		Eye::StrongRef<Eye::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Eye::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -51,14 +51,14 @@ public:
 			 0.5f,  0.5f, 0.0f,
 			-0.5f,  0.5f, 0.0f,
 		};
-		std::shared_ptr<Eye::VertexBuffer> squareVB;
+		Eye::StrongRef<Eye::VertexBuffer> squareVB;
 		squareVB.reset(Eye::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		squareVB->SetLayout({ { Eye::ShaderDataType::Float3, "a_Position" } });
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Eye::IndexBuffer> squareIB;
+		Eye::StrongRef<Eye::IndexBuffer> squareIB;
 		squareIB.reset(Eye::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -211,12 +211,12 @@ public:
 
 private:
 	// Triangle
-	std::shared_ptr<Eye::Shader> m_Shader;
-	std::shared_ptr<Eye::VertexArray> m_VertexArray;
+	Eye::StrongRef<Eye::Shader> m_Shader;
+	Eye::StrongRef<Eye::VertexArray> m_VertexArray;
 
 	// Background Square
-	std::shared_ptr<Eye::Shader> m_FlatShader;
-	std::shared_ptr<Eye::VertexArray> m_SquareVA;
+	Eye::StrongRef<Eye::Shader> m_FlatShader;
+	Eye::StrongRef<Eye::VertexArray> m_SquareVA;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	// Camera

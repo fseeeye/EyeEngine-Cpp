@@ -31,3 +31,21 @@
 #define BIT(x) (1 << x) // 0001 / 0010 / 0100 / ...
 
 #define EYE_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+
+#include <memory>
+
+namespace Eye {
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	//template<typename T>
+	//class Scope
+	//{
+	//};
+
+	template<typename T>
+	using StrongRef = std::shared_ptr<T>;
+
+}

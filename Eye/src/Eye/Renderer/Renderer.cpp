@@ -19,7 +19,7 @@ namespace Eye {
 		// TODOs
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform /*= glm::mat4(1.f)*/)
+	void Renderer::Submit(const StrongRef<Shader>& shader, const StrongRef<VertexArray>& vertexArray, const glm::mat4& transform /*= glm::mat4(1.f)*/)
 	{
 		// Shader set uniform
 		shader->Bind();
