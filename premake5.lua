@@ -20,6 +20,7 @@ IncludeDir["GLFW"] = "Eye/vendor/GLFW/include"
 IncludeDir["Glad"] = "Eye/vendor/Glad/include"
 IncludeDir["ImGui"] = "Eye/vendor/imgui"
 IncludeDir["glm"] = "Eye/vendor/glm"
+IncludeDir["stb_image"] = "Eye/vendor/stb_image"
 
 -- include `premake5.lua` of vendors 
 group "Dependencies"
@@ -47,6 +48,8 @@ project "Eye"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
     }
@@ -63,7 +66,8 @@ project "Eye"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links

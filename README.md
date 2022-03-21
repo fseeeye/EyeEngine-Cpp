@@ -56,6 +56,7 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 * [glm](https://github.com/g-truc/glm) : header only C++ mathematics library for graphics software which is like GLSL spec.
 * [ImGui](https://github.com/ocornut/imgui) : amazing Graphic UI lib.
 * [spdlog](https://github.com/gabime/spdlog) : fast, multi-threading supported, C++ logging library.
+* [stb_image](https://github.com/nothings/stb/blob/master/stb_image.h) : single-file image loader.
 
 ## Reference
 * [Hazel](https://github.com/TheCherno/Hazel) : Cherno have made a lot amazing Game Engine videos for that.

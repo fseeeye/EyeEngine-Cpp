@@ -25,6 +25,7 @@
 #include "Eye/Renderer/RenderCommand.h"
 #include "Eye/Renderer/Buffer.h"
 #include "Eye/Renderer/Shader.h"
+#include "Eye/Renderer/Texture.h"
 #include "Eye/Renderer/VertexArray.h"
 #include "Eye/Renderer/OrthographicCamera.h"
 // -------------------------------

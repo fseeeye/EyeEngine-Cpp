@@ -45,16 +45,19 @@ public:
 
 		// TEMP: Draw Background Square
 		m_SquareVA.reset(Eye::VertexArray::Create());
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
-		};
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+		}; // vertex(3) + texture coord(2)
 		Eye::StrongRef<Eye::VertexBuffer> squareVB;
 		squareVB.reset(Eye::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
-		squareVB->SetLayout({ { Eye::ShaderDataType::Float3, "a_Position" } });
+		squareVB->SetLayout({ 
+			{ Eye::ShaderDataType::Float3, "a_Position" },
+			{ Eye::ShaderDataType::Float2, "a_TexCoord" }
+		});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
@@ -133,6 +136,46 @@ public:
 		)";
 
 		m_FlatShader.reset(Eye::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
+
+		std::string texutreVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
+
+			out vec2 v_TexCoord;
+			
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+			
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Eye::Shader::Create(texutreVertexSrc, textureFragmentSrc));
+
+		m_Texture = Eye::Texture2D::Create("assets/textures/Checkerboard_RGB.png");
+
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Eye::Timestep deltaTime) override
@@ -188,9 +231,13 @@ public:
 				//Eye::Renderer::Submit(mi, m_SquareVA, transform);
 			}
 		}
+
+		// Draw a square for testing Texture
+		m_Texture->Bind();
+		Eye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 		 
-		// draw a triangle
-		Eye::Renderer::Submit(m_Shader, m_VertexArray);
+		// Draw a triangle
+		//Eye::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Eye::Renderer::EndScene();
 	}
@@ -218,6 +265,9 @@ private:
 	Eye::StrongRef<Eye::Shader> m_FlatShader;
 	Eye::StrongRef<Eye::VertexArray> m_SquareVA;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+
+	Eye::StrongRef<Eye::Shader> m_TextureShader;
+	Eye::StrongRef<Eye::Texture2D> m_Texture;
 
 	// Camera
 	Eye::OrthographicCamera m_OrthoCamera;
