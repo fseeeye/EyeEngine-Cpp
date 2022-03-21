@@ -5,6 +5,7 @@
 #include "Eye/Log.h"
 #include "Eye/Input.h"
 #include "Eye/Core/Timestep.h"
+#include "Eye/Renderer/Renderer.h"
 
 #include <glfw/glfw3.h>
 
@@ -24,6 +25,8 @@ namespace Eye {
 		m_Window->SetEventCallback(EYE_BIND_EVENT_FN(Application::OnEvent));
 
 		m_Window->SetVSync(true);
+
+		Renderer::Init();
 
 		// create ImGuiLayer and push over into LayerStack
 		m_ImGuiLayer = new ImGuiLayer();

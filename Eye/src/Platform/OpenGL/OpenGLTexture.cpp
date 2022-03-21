@@ -18,16 +18,30 @@ namespace Eye {
 		m_Width = width;
 		m_Height = height;
 
+		GLenum internalFormat = 0, dataFormat = 0;
+		if (channels == 4)
+		{
+			internalFormat = GL_RGBA8;
+			dataFormat = GL_RGBA;
+		}
+		else
+		{
+			internalFormat = GL_RGB8;
+			dataFormat = GL_RGB;
+		}
+
+		EYE_CORE_ASSERT(internalFormat & dataFormat, "Texture image format not support!");
+
 		// Create texture
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
-		glTextureStorage2D(m_RendererID, 1, GL_RGB8, m_Width, m_Height);
+		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
 
 		// Set texture params
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // The texture minifying function is used whenever the level-of-detail function used when sampling from the texture
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // The texture magnification function is used whenever the level-of-detail function used when sampling from the texture
 
 		// Upload texture data
-		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);
 	}

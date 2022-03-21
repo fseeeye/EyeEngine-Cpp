@@ -173,6 +173,7 @@ public:
 		m_TextureShader.reset(Eye::Shader::Create(texutreVertexSrc, textureFragmentSrc));
 
 		m_Texture = Eye::Texture2D::Create("assets/textures/Checkerboard_RGB.png");
+		m_ChernoLogoTexture = Eye::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -235,6 +236,9 @@ public:
 		// Draw a square for testing Texture
 		m_Texture->Bind();
 		Eye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
+
+		m_ChernoLogoTexture->Bind();
+		Eye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 		 
 		// Draw a triangle
 		//Eye::Renderer::Submit(m_Shader, m_VertexArray);
@@ -267,7 +271,7 @@ private:
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	Eye::StrongRef<Eye::Shader> m_TextureShader;
-	Eye::StrongRef<Eye::Texture2D> m_Texture;
+	Eye::StrongRef<Eye::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	// Camera
 	Eye::OrthographicCamera m_OrthoCamera;

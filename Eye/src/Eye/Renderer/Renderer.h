@@ -9,6 +9,8 @@ namespace Eye {
 	class Renderer
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(OrthographicCamera& orthoCamera);
 		static void EndScene();
 
