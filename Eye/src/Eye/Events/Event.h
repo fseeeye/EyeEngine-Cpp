@@ -63,19 +63,17 @@ namespace Eye
 	// Dispatch an event depend on its type
 	class EventDispatcher
 	{
-		template<typename T>
-		using EventFn = std::function<bool(T&)>; // intput Event Ref, return bool
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
-		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		template<typename T, typename F>
+		bool Dispatch(F& func)
 		{
 			// if type of the event == the type of the func event param
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.Handled = func(*(T*)&m_Event); // cast from &Event to XXXEvent
+				m_Event.Handled = func(static_cast<T&>(m_Event)); // cast from &Event to &XXXEvent
 				return true;
 			}
 			return false;

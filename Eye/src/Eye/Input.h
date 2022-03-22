@@ -7,6 +7,10 @@ namespace Eye {
 	class EYE_API Input
 	{
 	public:
+		Input(const Input&) = delete;
+		Input& operator=(const Input&) = delete;
+
+	public:
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 		inline static bool IsMouseButtonPreesed(int button) { return s_Instance->IsMouseButtonPreesedImpl(button); }
 		inline static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
@@ -19,6 +23,9 @@ namespace Eye {
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;
+
+	protected:
+		Input() = default;
 		
 	private:
 		static Input* s_Instance;

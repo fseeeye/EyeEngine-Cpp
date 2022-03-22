@@ -51,21 +51,20 @@ namespace Eye {
 	{
 		EYE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has nolayout!");
 
-		m_VertexBuffers.push_back(vertexBuffer);
-
 		// make sure the Vertex Array & Vertex Buffer have been bind
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
 		// Tie Vertex Buffer and its Layout to Vertex Array
-		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
-			glEnableVertexAttribArray(index); // enable vertex attribute array 0
-			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(static_cast<intptr_t>(element.Offset))); // specify vertex attribute data layout & bind
-			++index;
+			glEnableVertexAttribArray(m_VertexBufferIndex); // enable vertex attribute array 0
+			glVertexAttribPointer(m_VertexBufferIndex, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(static_cast<intptr_t>(element.Offset))); // specify vertex attribute data layout & bind
+			++m_VertexBufferIndex;
 		}
+
+		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
 	void OpenGLVertexArray::SetIndexBuffer(const StrongRef<IndexBuffer>& indexBuffer)

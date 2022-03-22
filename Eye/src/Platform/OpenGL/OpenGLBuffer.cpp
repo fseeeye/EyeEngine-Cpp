@@ -41,10 +41,10 @@ namespace Eye {
 		// Create Buffer
 		//glGenBuffers(1, &m_IndexBuffer);
 		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID); // it is correct to 'just bind' to GL_ARRAY_BUFFER like we present any 'other' buffer, like done with the vertex buffer.
 
 		// Set Index Buffer data
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
@@ -54,7 +54,7 @@ namespace Eye {
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID); // The only place where it must be set to GL_ELEMENT_ARRAY_BUFFER is while binding it, to specify that the presented buffer contains the indices.
 	}
 
 	void OpenGLIndexBuffer::Unbind() const

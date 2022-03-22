@@ -22,6 +22,8 @@ namespace Eye {
 		uint32_t m_RendererID;
 		std::vector<StrongRef<VertexBuffer>> m_VertexBuffers;
 		StrongRef<IndexBuffer> m_IndexBuffer;
+
+		uint32_t m_VertexBufferIndex = 0;
 	};
 
 }

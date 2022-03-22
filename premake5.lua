@@ -11,6 +11,11 @@ workspace "Eye"
         "Dist" -- distribution mode
     }
 
+    flags
+    {
+        "MultiProcessorCompile"
+    }
+
 -- tokens ref: https://github.com/premake/premake-core/wiki/Tokens
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
