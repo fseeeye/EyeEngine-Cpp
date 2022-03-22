@@ -1,7 +1,7 @@
 ﻿# EyeEngine-Cpp
 
 [![License][shield1]](./LICENSE)
-![Lines][shield2]
+<!-- ![Lines][shield2] -->
 
 *FOA, sry for my poor English.*
 
@@ -9,7 +9,7 @@
 Eye Engine is my first Real-Time 3D Game Engine learning project. 
 
 There are two editions: 
-* [Rust Edition](https://github.com/fseeeye/EyeEngine-Rust).
+* [Rust Edition](https://github.com/fseeeye/EyeEngine-Rust). (suspend development until I found game-dev job.)
 * [Cpp Edition](https://github.com/fseeeye/EyeEngine-Cpp). 
 
 They are completely independent and have different architecture & development plan! 
@@ -17,12 +17,12 @@ They are completely independent and have different architecture & development pl
 As I say, **Building games above this engine is not the first level target**! The main purpose of those projects is helping me to learn modern 3D Game Engine, Graphic API & SL and practice Computer Grahpic theory. 
 
 ## About Cpp Edition
-I will build it from the "bottom layer", such as Entry Point / Logging System. So, it can't show any windows or render any model at run-time currently.
+I will build it from the "bottom layer", such as Entry Point / Logging System. So, it will add advanced features slowly.😶‍🌫️
 
 ## Getting Started
 Cpp Edition only support Windows + OpenGL yet, make sure you have the correct env.
 1. Open this repo by Visual Studio. (Recommanded using Visual Studio 2022)
-2. Hit `F5` to run the Game Sandbox Exe Project. 
+2. Hit `F5` to run the Game Sandbox Example Project. 
 
 ## RoadMap
 - [X] Basic System
@@ -38,12 +38,16 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
   - [X] (Vertex & Index) Buffer
   - [X] Vertex Buffer Layout
   - [X] Vertex Array
+  - [X] Shader
   - [X] Draw Call
   - [X] 2D Camera (View & Projection Transform)
   - [X] DeltaTime
   - [X] Model Transform
-  - [ ] Matrial System
-- [ ] Texture and Model Format
+- [ ] Material System / Asset System
+  - [X] Shader Asset
+  - [X] Texture Asset
+  - [X] Shader Library
+  - [ ] Model Asset
 - [ ] Serialization
 - [ ] Entity Component System
 - [ ] Level Format
@@ -65,4 +69,4 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 
 [crate]: https://crates.io/crates/eyengine
 [shield1]: https://img.shields.io/github/license/fseeeye/EyeEngine-Cpp
-[shield2]: https://tokei.rs/b1/github/fseeeye/EyeEngine-Cpp?category=lines
+<!-- [shield2]: https://tokei.rs/b1/github/fseeeye/EyeEngine-Cpp?category=lines -->
