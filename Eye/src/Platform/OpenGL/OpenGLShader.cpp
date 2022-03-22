@@ -1,8 +1,6 @@
 ﻿#include "eyepch.h"
 #include "OpenGLShader.h"
 
-#include <fstream>
-
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -19,13 +17,14 @@ namespace Eye {
 		return 0;
 	}
 	
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
 
-		Compile(sources);
+		Compile(sources); 
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
@@ -34,6 +33,15 @@ namespace Eye {
 		auto shaderSources = PreProcess(source);
 
 		Compile(shaderSources);
+
+		// Extract name from filepath defaultly.
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+
+		auto lastDot = filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+
+		m_Name = filepath.substr(lastSlash, count);
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -96,7 +104,7 @@ namespace Eye {
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
 		std::string rst;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
 		if (in)
 		{
@@ -141,7 +149,12 @@ namespace Eye {
 	// ref: https://www.khronos.org/opengl/wiki/Shader_Compilation
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
-		std::vector<GLuint> glShaderIDs(shaderSources.size());
+		// TODO
+		EYE_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now :(");
+		std::array<GLuint, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
+		//std::vector<GLuint> glShaderIDs;
+		//glShaderIDs.reserve(shaderSources.size());
 
 		// Get a program object.
 		GLuint program = glCreateProgram();
@@ -186,7 +199,7 @@ namespace Eye {
 			// Attach shader to our program
 			glAttachShader(program, shader);
 
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
 		// Shader are successfully compiled.

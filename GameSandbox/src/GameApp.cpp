@@ -66,7 +66,7 @@ public:
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		// Vertex & Fragment Shaders
-		// base shader
+		// vertex position color shader
 		std::string vertexSrc = R"(
 			#version 330 core
 
@@ -98,11 +98,11 @@ public:
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = vec4(v_Color);
+				color = v_Color;
 			}
 		)";
 
-		m_Shader.reset(Eye::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Eye::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		// flat color shader
 		std::string flatShaderVertexSrc = R"(
@@ -137,17 +137,18 @@ public:
 			}
 		)";
 
-		m_FlatShader.reset(Eye::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
+		m_FlatShader = Eye::Shader::Create("FlatColor", flatShaderVertexSrc, flatShaderFragmentSrc);
 
 		// texture shader
-		m_TextureShader.reset(Eye::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
+		//auto textureShader = Renderer::GetShaderLibrary()->Load("assets/shaders/Texture.glsl"); // TODO
 
 		// Create & Upload Texture
 		m_Texture = Eye::Texture2D::Create("assets/textures/Checkerboard_RGB.png");
 		m_ChernoLogoTexture = Eye::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Eye::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Eye::Timestep deltaTime) override
@@ -204,12 +205,14 @@ public:
 			}
 		}
 
-		// Draw a square for testing Texture
+		// Draw for testing Texture
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Eye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
+		Eye::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 
 		m_ChernoLogoTexture->Bind();
-		Eye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
+		Eye::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 		 
 		// Draw a triangle
 		//Eye::Renderer::Submit(m_Shader, m_VertexArray);
@@ -233,6 +236,7 @@ public:
 
 private:
 	// Triangle
+	Eye::ShaderLibrary m_ShaderLibrary;
 	Eye::StrongRef<Eye::Shader> m_Shader;
 	Eye::StrongRef<Eye::VertexArray> m_VertexArray;
 
@@ -241,7 +245,6 @@ private:
 	Eye::StrongRef<Eye::VertexArray> m_SquareVA;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
-	Eye::StrongRef<Eye::Shader> m_TextureShader;
 	Eye::StrongRef<Eye::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	// Camera
