@@ -66,6 +66,7 @@ public:
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		// Vertex & Fragment Shaders
+		// base shader
 		std::string vertexSrc = R"(
 			#version 330 core
 
@@ -103,6 +104,7 @@ public:
 
 		m_Shader.reset(Eye::Shader::Create(vertexSrc, fragmentSrc));
 
+		// flat color shader
 		std::string flatShaderVertexSrc = R"(
 			#version 330 core
 
@@ -137,41 +139,10 @@ public:
 
 		m_FlatShader.reset(Eye::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
 
-		std::string texutreVertexSrc = R"(
-			#version 330 core
+		// texture shader
+		m_TextureShader.reset(Eye::Shader::Create("assets/shaders/Texture.glsl"));
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Model;
-
-			out vec2 v_TexCoord;
-			
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string textureFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-			
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(Eye::Shader::Create(texutreVertexSrc, textureFragmentSrc));
-
+		// Create & Upload Texture
 		m_Texture = Eye::Texture2D::Create("assets/textures/Checkerboard_RGB.png");
 		m_ChernoLogoTexture = Eye::Texture2D::Create("assets/textures/ChernoLogo.png");
 
