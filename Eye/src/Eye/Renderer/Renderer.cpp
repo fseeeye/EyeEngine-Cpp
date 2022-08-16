@@ -21,7 +21,7 @@ namespace Eye {
 
 	void Renderer::EndScene()
 	{
-		// TODOs
+		// TODO
 	}
 
 	void Renderer::Submit(const StrongRef<Shader>& shader, const StrongRef<VertexArray>& vertexArray, const glm::mat4& transform /*= glm::mat4(1.f)*/)

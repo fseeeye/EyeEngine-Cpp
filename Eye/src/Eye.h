@@ -6,6 +6,8 @@
 #include "Eye/Application.h"
 #include "Eye/Log.h"
 #include "Eye/Layer.h"
+#include "Eye/Core/Timestep.h"
+#include "Eye/OrthographicCameraController.h"
 // -------------------------------
 
 // --------- Inputs --------------
@@ -13,12 +15,6 @@
 #include "Eye/KeyCodes.h"
 #include "Eye/MouseButtonCodes.h"
 // -------------------------------
-
-// Time
-#include "Eye/Core/Timestep.h"
-
-// ImGui
-#include "Eye/ImGui/ImGuiLayer.h"
 
 // --------- Renderer ------------
 #include "Eye/Renderer/Renderer.h"
@@ -29,6 +25,9 @@
 #include "Eye/Renderer/VertexArray.h"
 #include "Eye/Renderer/OrthographicCamera.h"
 // -------------------------------
+
+// ImGui
+#include "Eye/ImGui/ImGuiLayer.h"
 
 // --------- Entry Point ---------
 #include "Eye/EntryPoint.h"

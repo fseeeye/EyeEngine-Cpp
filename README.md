@@ -21,8 +21,13 @@ I will build it from the "bottom layer", such as Entry Point / Logging System. S
 
 ## Getting Started
 Cpp Edition only support Windows + OpenGL yet, make sure you have the correct env.
-1. Open this repo by Visual Studio. (Recommanded using Visual Studio 2022)
-2. Hit `F5` to run the Game Sandbox Example Project. 
+1. `git clone --recursive https://github.com/fseeeye/EyeEngine-Cpp.git`
+2. Open this repo by Visual Studio. (Recommanded using Visual Studio 2022)
+3. Hit `F5` to run the Game Sandbox Example Project. 
+
+## Dev Guide
+* update submodules: `git submodule update --recursive --remote`.
+* use [commitizen](https://www.npmjs.com/package/commitizen) commit changes.
 
 ## RoadMap
 - [X] Basic System
@@ -48,6 +53,7 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
   - [X] Texture Asset
   - [X] Shader Library
   - [ ] Model Asset
+- [ ] 2D Renderer (target: Batch Rendering + 60fps + with 100-200k textures)
 - [ ] Serialization
 - [ ] Entity Component System
 - [ ] Level Format

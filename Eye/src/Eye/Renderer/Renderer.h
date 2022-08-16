@@ -11,6 +11,7 @@ namespace Eye {
 	public:
 		static void Init();
 
+		// Set camera, lights, env, etc.
 		static void BeginScene(OrthographicCamera& orthoCamera);
 		static void EndScene();
 

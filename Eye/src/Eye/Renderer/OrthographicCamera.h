@@ -4,10 +4,12 @@
 
 namespace Eye {
 
-	class OrthographicCamera // 2D
+	class OrthographicCamera // 2D Camera
 	{
 	public:
-		OrthographicCamera(float left, float right, float bottom, float top);
+		OrthographicCamera(float zoomLeft, float zoomRight, float zoomBottom, float zoomTop);
+
+		void ResetProjection(float zoomLeft, float zoomRight, float zoomBottom, float zoomTop);
 
 		inline const glm::vec3& GetPosition() const { return m_Position; }
 		inline void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
@@ -23,9 +25,9 @@ namespace Eye {
 		void RecalculateViewMatrix();
 
 	private:
-		glm::mat4 m_ProjectionMatrix;
-		glm::mat4 m_ViewMatrix;
-		glm::mat4 m_ViewProjectionMatrix;
+		glm::mat4 m_ProjectionMatrix; // P Matrix
+		glm::mat4 m_ViewMatrix; // V Matrix
+		glm::mat4 m_ViewProjectionMatrix; // VP Matrix
 
 		glm::vec3 m_Position = { 0.f, 0.f, 0.f };
 		float m_Rotation = 0.f;

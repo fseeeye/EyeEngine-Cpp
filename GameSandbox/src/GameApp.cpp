@@ -12,7 +12,7 @@ class ExampleLayer : public Eye::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_OrthoCamera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.f)
+		: Layer("Example"), m_OrthoCameraController(1280.f / 720.f)
 	{
 		// TEMP: draw a triangle
 		// Vertex Array
@@ -153,32 +153,19 @@ public:
 
 	void OnUpdate(Eye::Timestep deltaTime) override
 	{
-		/* Handle Camera transform (View Matrix) */
-		if (Eye::Input::IsKeyPressed(EYE_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime;
-		else if (Eye::Input::IsKeyPressed(EYE_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * deltaTime;
-
-		if (Eye::Input::IsKeyPressed(EYE_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * deltaTime;
-		else if (Eye::Input::IsKeyPressed(EYE_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
-
-		if (Eye::Input::IsKeyPressed(EYE_KEY_Q))
-			m_CameraRotationAngle += m_CameraRotationSpeed * deltaTime;
-		else if (Eye::Input::IsKeyPressed(EYE_KEY_E))
-			m_CameraRotationAngle -= m_CameraRotationSpeed * deltaTime;
-
-		m_OrthoCamera.SetPosition(m_CameraPosition);
-		m_OrthoCamera.SetRotation(m_CameraRotationAngle);
+		/* Update */
+		m_OrthoCameraController.OnUpdate(deltaTime);
 		
-		/* Draw */
+		/* Render */
 		Eye::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
 		Eye::RenderCommand::Clear();
 
-		Eye::Renderer::BeginScene(m_OrthoCamera);
+		Eye::Renderer::BeginScene(m_OrthoCameraController.GetCamera());
 
-		// First, draw background squares at below
+		// TODO: Render 2D
+		//Eye::Renderer2D::BeginScene(m_Scene);
+
+		// 1. Draw example background squares at below
 		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_FlatShader)->Bind();
 		std::dynamic_pointer_cast<Eye::OpenGLShader>(m_FlatShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
@@ -205,7 +192,7 @@ public:
 			}
 		}
 
-		// Draw for testing Texture
+		// 2. Draw for testing Texture
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 
 		m_Texture->Bind();
@@ -214,7 +201,7 @@ public:
 		m_ChernoLogoTexture->Bind();
 		Eye::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 		 
-		// Draw a triangle
+		// 3. Draw a triangle
 		//Eye::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Eye::Renderer::EndScene();
@@ -231,7 +218,7 @@ public:
 
 	void OnEvent(Eye::Event& event) override
 	{
-		//Eye::EventDispatcher dispatcher(event);
+		m_OrthoCameraController.OnEvent(event);
 	}
 
 private:
@@ -248,11 +235,7 @@ private:
 	Eye::StrongRef<Eye::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	// Camera
-	Eye::OrthographicCamera m_OrthoCamera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraRotationAngle = 0.f;
-	float m_CameraMoveSpeed = 1.f;
-	float m_CameraRotationSpeed = 60.f;
+	Eye::OrthographicCameraController m_OrthoCameraController;
 };
 
 class Game : public Eye::Application
@@ -263,10 +246,7 @@ public:
 		PushLayer(new ExampleLayer());
 	}
 
-	~Game()
-	{
-
-	}
+	~Game() = default;
 };
 
 Eye::Application* Eye::CreateApplication()
