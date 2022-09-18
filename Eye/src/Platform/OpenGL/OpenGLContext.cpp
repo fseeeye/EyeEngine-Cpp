@@ -21,7 +21,10 @@ namespace Eye {
 		EYE_CORE_ASSERT(version, "Failed to initialize Glad!");
 		
 		EYE_CORE_INFO("OpenGL Info:\n\tVendor: {0}\n\tRenderer: {1}\n\tVersion: {2}", 
-			glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
+			reinterpret_cast<const char*>(glGetString(GL_VENDOR)), 
+			reinterpret_cast<const char*>(glGetString(GL_RENDERER)),
+			reinterpret_cast<const char*>(glGetString(GL_VERSION))
+		);
 	}
 
 	void OpenGLContext::SwapBuffers()
