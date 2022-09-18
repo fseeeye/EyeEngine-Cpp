@@ -25,6 +25,9 @@ namespace Eye {
 		inline OrthographicCamera& GetCamera() { return m_Camera; }
 		inline const OrthographicCamera& GetCamera() const { return m_Camera; }
 
+		inline float GetZoomLevel() const { return m_ZoomLevel; }
+		inline void SetZoomLevel(const float level) { m_ZoomLevel = level; }
+
 	private:
 		// Handle mouse scrolled event for updating ortho camera.
 		bool OnMouseScrolled(MouseScrolledEvent& e);

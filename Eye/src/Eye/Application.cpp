@@ -35,7 +35,7 @@ namespace Eye {
 
 	void Application::Run()
 	{
-		while (m_Running)
+		while (m_IsRunning)
 		{
 			// Calculate delta time
 			float time = static_cast<float>(glfwGetTime()); // TODO: Platform::GetTime()
@@ -43,8 +43,11 @@ namespace Eye {
 			m_LastFrameTime = time;
 
 			// Udpate Layers
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_IsMinimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			// Update ImGui
 			// TODO: add to Render Thread
@@ -62,13 +65,14 @@ namespace Eye {
 	void Application::OnEvent(Event& e)
 	{
 		//EYE_CORE_TRACE("Get Event: {}", e);
-		// create EventDispatcher
+		// Create EventDispatcher
 		EventDispatcher dispatcher(e);
 
-		// check event type and dispatch it to correct func
+		// Check event type and dispatch it to correct func
 		dispatcher.Dispatch<WindowCloseEvent>(EYE_BIND_EVENT_FN(Application::OnWindowClosed)); // dispatch Window Closed Event
+		dispatcher.Dispatch<WindowResizeEvent>(EYE_BIND_EVENT_FN(Application::OnWindowResized)); // dispatch Window Resize Event
 
-		// boardcast event to layers
+		// Boardcast event to layers if it
 		if (!e.Handled) {
 			// dispatch event into layers (from button to top)
 			for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
@@ -80,12 +84,30 @@ namespace Eye {
 		}
 	}
 
-	// Handle Window Closed Event
 	bool Application::OnWindowClosed(WindowCloseEvent& e)
 	{
-		m_Running = false;
+		m_IsRunning = false;
 
 		return true;
+	}
+
+	bool Application::OnWindowResized(WindowResizeEvent& e)
+	{
+		// Whether window is minimized
+		if (e.GetWidth() == 0 && e.GetHeight() == 0) 
+		{
+			// We should tell application when window is minimized:
+			// don't need to update layers anymore.
+			m_IsMinimized = true; 
+
+			return false;
+		}
+		m_IsMinimized = false;
+
+		// Call renderer to perform resize operation : changing viewport
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false; // not block this envent
 	}
 
 }

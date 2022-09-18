@@ -39,7 +39,7 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
   - [X] ImGUI
   - [X] Keycode & Mousecode
   - [X] Math Support
-- [ ] Rendering
+- [X] Abstract Rendering basis
   - [X] (Vertex & Index) Buffer
   - [X] Vertex Buffer Layout
   - [X] Vertex Array
@@ -54,6 +54,8 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
   - [X] Shader Library
   - [ ] Model Asset
 - [ ] 2D Renderer (target: Batch Rendering + 60fps + with 100-200k textures)
+	- [X] Orthographic Camera
+	- [X] Handle resize properly
 - [ ] Serialization
 - [ ] Entity Component System
 - [ ] Level Format

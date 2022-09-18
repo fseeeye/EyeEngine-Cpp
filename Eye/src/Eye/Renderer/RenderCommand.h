@@ -27,6 +27,11 @@ namespace Eye {
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
+		inline static void SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height)
+		{
+			s_RendererAPI->SetViewport(x, y, width, height);
+		}
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};
