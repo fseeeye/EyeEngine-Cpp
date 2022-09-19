@@ -8,10 +8,8 @@
 #include "Eye/Events/KeyEvent.h"
 #include "Eye/Events/MouseEvent.h"
 #include "Eye/Events/ApplicationEvent.h"
-
 #include "Eye/ImGui/ImGUiLayer.h"
-
-#include "LayerStack.h"
+#include "Eye/Core/LayerStack.h"
 
 namespace Eye {
 

@@ -1,9 +1,9 @@
 #include "eyepch.h"
 #include "OrthographicCameraController.h"
 
-#include "Eye/input.h"
-#include "Eye/KeyCodes.h"
-#include "Eye/Core.h"
+#include "Eye/Core/Core.h"
+#include "Eye/Core/Input.h"
+#include "Eye/Core/KeyCodes.h"
 
 namespace Eye {
 

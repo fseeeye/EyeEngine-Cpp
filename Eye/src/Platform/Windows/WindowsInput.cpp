@@ -1,7 +1,7 @@
 ﻿#include "eyepch.h"
 #include "WindowsInput.h"
 
-#include "Eye/Application.h"
+#include "Eye/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

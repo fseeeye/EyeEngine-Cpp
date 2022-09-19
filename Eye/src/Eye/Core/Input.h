@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Eye/Core.h"
+#include "Eye/Core/Core.h"
 
 namespace Eye {
 

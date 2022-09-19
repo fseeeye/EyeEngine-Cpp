@@ -1,10 +1,7 @@
 ﻿#include "eyepch.h"
 #include "Application.h"
 
-#include "Eye/Core.h"
-#include "Eye/Log.h"
-#include "Eye/Input.h"
-#include "Eye/Core/Timestep.h"
+#include "Eye/Core/Log.h"
 #include "Eye/Renderer/Renderer.h"
 
 #include <glfw/glfw3.h>

@@ -6,7 +6,7 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
-#include "Eye/Application.h"
+#include "Eye/Core/Application.h"
 
 // TODO: temporary
 #include <GLFW/glfw3.h>

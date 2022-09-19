@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Eye/Window.h"
+#include "Eye/Core/Window.h"
 #include "Eye/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"

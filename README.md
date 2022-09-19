@@ -70,6 +70,9 @@ Cpp Edition only support Windows + OpenGL yet, make sure you have the correct en
 * [spdlog](https://github.com/gabime/spdlog) : fast, multi-threading supported, C++ logging library.
 * [stb_image](https://github.com/nothings/stb/blob/master/stb_image.h) : single-file image loader.
 
+## Dependence Binarys
+* [premake](https://github.com/premake/premake-core/) : perform build configuration tasks or generate project files for toolsets like Visual Studio, Xcode, and GNU Make. 
+
 ## Reference
 * [Hazel](https://github.com/TheCherno/Hazel) : Cherno have made a lot amazing Game Engine videos for that.
 * [Unreal](https://github.com/EpicGames/UnrealEngine) : well-known Game Engine.

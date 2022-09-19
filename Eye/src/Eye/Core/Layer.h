@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "Eye/Core.h"
-#include "Eye/Events/Event.h"
+#include "Eye/Core/Core.h"
 #include "Eye/Core/Timestep.h"
+#include "Eye/Events/Event.h"
 
 namespace Eye {
 

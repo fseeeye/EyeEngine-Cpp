@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include "Eye/Core.h"
-#include "Eye/Layer.h"
+#include "Eye/Core/Layer.h"
 #include "Eye/Events/KeyEvent.h"
 #include "Eye/Events/MouseEvent.h"
 #include "Eye/Events/ApplicationEvent.h"
