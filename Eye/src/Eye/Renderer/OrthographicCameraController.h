@@ -49,7 +49,7 @@ namespace Eye {
 		float m_CameraTranslationSpeed = 1.f;
 
 		bool m_EnableCameraRotation;
-		float m_CameraRotationAngle = 0.f;
+		float m_CameraRotationAngle = 0.f; //In degrees, in the anti-clockwise direction
 		float m_CameraRotationSpeed = 60.f;
 	};
 

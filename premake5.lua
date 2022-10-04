@@ -91,7 +91,6 @@ project "Eye"
         -- ref: https://github.com/premake/premake-core/wiki/defines
         defines -- preprocessor definitions
         {
-            "EYE_PLATFORM_WINDOWS",
             "EYE_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
@@ -153,12 +152,6 @@ project "GameSandbox"
     -- ref: https://github.com/premake/premake-core/wiki/filter
     filter "system:windows" -- filter for Windows platform
         systemversion "latest" -- windows SDK version (set spec version or use "latest")
-
-        -- ref: https://github.com/premake/premake-core/wiki/defines
-        defines -- preprocessor definitions
-        {
-            "EYE_PLATFORM_WINDOWS"
-        }
 
     filter "configurations:Debug" -- filter for Debug mode
         defines "EYE_DEBUG"

@@ -17,14 +17,25 @@ namespace Eye {
 	{
 		// handle translation
 		if (Input::IsKeyPressed(EYE_KEY_A))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * deltaTime;
+		{
+			m_CameraPosition.x -= ::cos(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+			m_CameraPosition.y -= ::sin(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+		}
 		else if (Input::IsKeyPressed(EYE_KEY_D))
-			m_CameraPosition.x += m_CameraTranslationSpeed * deltaTime;
-
-		if (Input::IsKeyPressed(EYE_KEY_S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * deltaTime;
-		else if (Input::IsKeyPressed(EYE_KEY_W))
-			m_CameraPosition.y += m_CameraTranslationSpeed * deltaTime;
+		{
+			m_CameraPosition.x += ::cos(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+			m_CameraPosition.y += ::sin(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+		}
+		if (Input::IsKeyPressed(EYE_KEY_W))
+		{
+			m_CameraPosition.x += -::sin(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+			m_CameraPosition.y += ::cos(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+		}
+		else if (Input::IsKeyPressed(EYE_KEY_S))
+		{
+			m_CameraPosition.x -= -::sin(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+			m_CameraPosition.y -= ::cos(glm::radians(m_CameraRotationAngle)) * m_CameraRotationSpeed * deltaTime;
+		}
 
 		// handle rotation
 		if (m_EnableCameraRotation)
@@ -33,6 +44,15 @@ namespace Eye {
 				m_CameraRotationAngle += m_CameraRotationSpeed * deltaTime;
 			else if (Input::IsKeyPressed(EYE_KEY_E))
 				m_CameraRotationAngle -= m_CameraRotationSpeed * deltaTime;
+
+			if (m_CameraRotationAngle > 180.f)
+			{
+				m_CameraRotationAngle -= 360.f;
+			}
+			else if (m_CameraRotationAngle <= -180.f)
+			{
+				m_CameraRotationAngle += 360.f;
+			}
 			
 			m_Camera.SetRotation(m_CameraRotationAngle);
 		}

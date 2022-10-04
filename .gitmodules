@@ -2,14 +2,18 @@
 	path = Eye/vendor/spdlog
 	url = https://github.com/gabime/spdlog
 	ignore = dirty
+	branch = v1.x
 [submodule "Eye/vendor/GLFW"]
 	path = Eye/vendor/GLFW
 	url = https://github.com/fseeeye/glfw
 	ignore = dirty
+	branch = master
 [submodule "Eye/vendor/imgui"]
 	path = Eye/vendor/imgui
 	url = https://github.com/fseeeye/imgui/
 	ignore = dirty
+	branch = docking
 [submodule "Eye/vendor/glm"]
 	path = Eye/vendor/glm
 	url = https://github.com/g-truc/glm
+	branch = master

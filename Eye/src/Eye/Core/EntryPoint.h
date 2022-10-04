@@ -1,6 +1,10 @@
 ﻿#pragma once
 
+#include "Eye/Core/Core.h"
+
 #ifdef EYE_PLATFORM_WINDOWS
+#include "Eye/Core/Log.h"
+#include "Eye/Core/Application.h"
 
 // All codes below will be included into Game Application
 extern Eye::Application* Eye::CreateApplication();

@@ -81,7 +81,7 @@ namespace Eye {
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		EYE_CORE_ASSERT(m_Window, "Could not create Window!");
 		// Create OpenGL Context
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = CreateScope<OpenGLContext>(m_Window);
 
 		// Init OpenGL Context
 		m_Context->Init();

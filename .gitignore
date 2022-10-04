@@ -1,10 +1,11 @@
-# Directories
-.vs/
-bin/
+# Binaries
+**/bin/
 bin-int/
+!vendor/bin/
 
 # VS Files
-*.user
-*.sln
-*.vcxproj
-*.vcxproj.filters
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.user
+**.vcxproj.filters

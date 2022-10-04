@@ -3,8 +3,8 @@
 // For use by Eye Game Application
 
 // --------- Basis ---------------
-#include "Eye/Core/Application.h"
 #include "Eye/Core/EntryPoint.h"
+#include "Eye/Core/Application.h"
 #include "Eye/Core/Log.h"
 #include "Eye/Core/Layer.h"
 #include "Eye/Core/Timestep.h"

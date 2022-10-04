@@ -7,7 +7,11 @@ namespace Eye {
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : m_Layers)
+		{
+			// Call `OnDetach()` before delete the layer
+			layer->OnDetach();
 			delete layer;
+		}
 	}
 
 	void LayerStack::PushLayer(Layer* layer)

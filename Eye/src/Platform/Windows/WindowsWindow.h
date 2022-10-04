@@ -31,7 +31,7 @@ namespace Eye {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		Scope<GraphicsContext> m_Context;
 
 		// all Window specific data passing to GLFWwindow
 		struct WindowData

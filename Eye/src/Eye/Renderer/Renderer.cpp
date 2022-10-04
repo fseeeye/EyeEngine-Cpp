@@ -6,7 +6,7 @@
 
 namespace Eye {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	Scope<Renderer::SceneData> Renderer::s_SceneData = Scope<Renderer::SceneData>();
 
 	void Renderer::Init()
 	{

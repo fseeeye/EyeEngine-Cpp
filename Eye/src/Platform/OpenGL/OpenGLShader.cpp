@@ -129,17 +129,19 @@ namespace Eye {
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
 
-		size_t pos = source.find(typeToken, 0);
+		size_t pos = source.find(typeToken, 0); // find the start of sharer type declaration line
 		while (pos != std::string::npos)
 		{
-			size_t eol = source.find_first_of("\r\n", pos);
+			size_t eol = source.find_first_of("\r\n", pos); // find the end of sharer type declaration line
 			EYE_CORE_ASSERT(eol != std::string::npos, "Shader syntax error!");
-			size_t begin = pos + typeTokenLength + 1;
+			size_t begin = pos + typeTokenLength + 1; // find the start of shader type name
 			std::string type = source.substr(begin, eol - begin);
 			EYE_CORE_ASSERT(type == "vertex" || type == "fragment" || type == "pixel", "Invalid shader type specification!");
 
-			size_t nextLinePos = source.find_first_of("\r\n", eol);
+			size_t nextLinePos = source.find_first_of("\r\n", eol); // find the start of shader code
+			EYE_CORE_ASSERT(nextLinePos != std::string::npos, "Shader Syntax error!");
 			pos = source.find(typeToken, nextLinePos);
+
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
 		}
 
@@ -233,9 +235,12 @@ namespace Eye {
 			return;
 		}
 
-		// Always detach shaders after a successful link.
+		// Always detach & delete shaders after a successful link.
 		for (auto id : glShaderIDs)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 
 		m_RendererID = program;
 	}
